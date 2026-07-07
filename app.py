@@ -90,7 +90,19 @@ app_ui = ui.page_sidebar(
             "Downloads the two selected captures and shows their differences.",
             placement="right",
         ),
-        ui.hr(),
+        width=340,
+    ),
+    ui.head_content(
+        ui.include_css(_HERE / "styles.css", method="inline"),
+        ui.include_js(_HERE / "calendar.js", method="inline"),
+    ),
+    ui.div(
+        ui.p(
+            "Browse a URL's snapshots from the Internet Archive Wayback Machine "
+            "on a calendar, pick two captures, and view a diff of "
+            "how the page changed.",
+            class_="text-secondary mb-1",
+        ),
         ui.tags.small(
             ui.a(
                 ui.HTML(_GITHUB_ICON_SVG),
@@ -101,11 +113,7 @@ app_ui = ui.page_sidebar(
             ),
             class_="text-secondary",
         ),
-        width=340,
-    ),
-    ui.head_content(
-        ui.include_css(_HERE / "styles.css", method="inline"),
-        ui.include_js(_HERE / "calendar.js", method="inline"),
+        class_="app-intro mb-3",
     ),
     ui.output_ui("status"),
     ui.navset_card_tab(
