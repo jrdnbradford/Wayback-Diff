@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: pytest & app smoke test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Run pytest
+        run: pytest -v
+
+      - name: Ensure the app starts and serves
+        run: |
+          shiny run app.py --host 127.0.0.1 --port 8000 &
+          APP_PID=$!
+          # Give the server up to ~30s to come up, then verify it responds.
+          for i in $(seq 1 30); do
+            if curl -sf http://127.0.0.1:8000/ >/dev/null; then
+              echo "App responded successfully."
+              kill "$APP_PID"
+              exit 0
+            fi
+            # Bail early if the process already died.
+            if ! kill -0 "$APP_PID" 2>/dev/null; then
+              echo "App process exited before serving."
+              wait "$APP_PID"
+              exit 1
+            fi
+            sleep 1
+          done
+          echo "App did not respond within timeout."
+          kill "$APP_PID" 2>/dev/null || true
+          exit 1
