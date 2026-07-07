@@ -1,5 +1,9 @@
 # Wayback Diff
 
+[![Tests](https://img.shields.io/github/actions/workflow/status/jrdnbradford/Wayback-Diff/tests.yml?branch=main&label=Tests&logo=github&logoColor=white)](https://github.com/jrdnbradford/Wayback-Diff/actions/workflows/tests.yml)
+[![Built with Shiny](https://img.shields.io/badge/Built%20with-Shiny-447099?logo=posit&logoColor=white)](https://shiny.posit.co/py/)
+[![Live on Connect Cloud](https://img.shields.io/badge/Live%20on-Connect%20Cloud-4c4cff?logo=posit&logoColor=white)](https://019f3957-cd1e-0735-4665-d5fb21274822.share.connect.posit.cloud)
+
 A [Shiny](https://shiny.posit.co/py/) app that retrieves archived versions of any URL from the **Internet Archive Wayback Machine**, plots the captures on a calendar, and lets you diff two versions side by side.
 
 The main panel has two tabs: **Calendar** (browse and pick versions) and **Diff** (view the comparison).
