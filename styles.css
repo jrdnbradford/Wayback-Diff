@@ -209,3 +209,14 @@ pre.udiff .u-hdr {
   margin: .4rem 0 0;
   font-size: .8rem;
 }
+
+/* ==========================================================================
+   GitHub source link
+   ========================================================================== */
+.gh-icon {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  margin-right: .35rem;
+  fill: currentColor;
+}
